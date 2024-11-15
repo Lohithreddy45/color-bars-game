@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar Animation</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 80%;
+            height: 300px;
+            background-color: black;
+            margin-top: 50px;
+            padding: 0;
+        }
+        .bar {
+            width: 20%; /* Adjust width to fit all bars with no gap */
+            transition: height 0.3s;
+            margin: 0; /* Remove any margin */
+        }
+        .bar1 { background-color: purple; }
+        .bar2 { background-color: pink; }
+        .bar3 { background-color: coral; }
+        .bar4 { background-color: orange; }
+        .bar5 { background-color: yellow; }
+        .buttons {
+            margin-top: 20px;
+        }
+        .buttons button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 0 10px;
+            cursor: pointer;
+            border: none;
+            color: white;
+        }
+        #startBtn { background-color: green; }
+        #resetBtn { background-color: violet; }
+        #stopBtn { background-color: red; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="bar bar1" style="height: 100px;"></div>
+        <div class="bar bar2" style="height: 150px;"></div>
+        <div class="bar bar3" style="height: 200px;"></div>
+        <div class="bar bar4" style="height: 120px;"></div>
+        <div class="bar bar5" style="height: 80px;"></div>
+    </div>
+    <div class="buttons">
+        <button id="startBtn">Start</button>
+        <button id="resetBtn">Reset</button>
+        <button id="stopBtn">Stop</button>
+    </div>
+    <script>
+        const bars = document.querySelectorAll('.bar');
+        let animationInterval;
+        let isAnimating = false;
+
+        function startAnimation() {
+            if (isAnimating) return;
+            isAnimating = true;
+            animationInterval = setInterval(() => {
+                bars.forEach(bar => {
+                    const randomHeight = Math.floor(Math.random() * 200) + 50;
+                    bar.style.height = randomHeight + 'px';
+                });
+            }, 500);
+        }
+
+        function stopAnimation() {
+            clearInterval(animationInterval);
+            isAnimating = false;
+        }
+
+        function resetAnimation() {
+            stopAnimation();
+            bars.forEach((bar, index) => {
+                bar.style.height = (index * 40 + 80) + 'px';
+            });
+        }
+
+        document.getElementById('startBtn').addEventListener('click', startAnimation);
+        document.getElementById('stopBtn').addEventListener('click', stopAnimation);
+        document.getElementById('resetBtn').addEventListener('click', resetAnimation);
+    </script>
+</body>
+</html>
